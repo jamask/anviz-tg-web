@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+  <script>
+    function myFunction(id, fio, idanviz, tg1, tg2, code) {
+      let elemSubmit = document.getElementById('' + id + code);
+      elemSubmit.setAttribute("disabled", "disabled");
+
+      window.setTimeout(function() {
+        elemSubmit.removeAttribute("disabled");
+    }, 3e3);
+
+      const body = {id, fio, idanviz, tg1, tg2, code};
+      fetch('/inout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then(data => console.log(data));
+    }
+  </script>
+</head>
+<body>
+  <h1>Students</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>FIO</th>
+        <th>ANVIZ-ID</th>
+        <th>TG1</th>
+        <th>TG2</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        @data@
+    </tbody>
+  </table>
+  <form action="" method="post">
+    id: <input type="text" name="id" required>
+    fio: <input type="text" name="fio" required>
+    id-anviz: <input type="text" name="idanviz" required>
+    telegram1: <input type="text" name="tg1" required>
+    telegram2: <input type="text" name="tg2" disabled>
+    <input type="submit" value="Add">
+  </form>
+</body>
+</html>
